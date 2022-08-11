@@ -80,6 +80,30 @@ public class App {
 
 			System.out.printf("%d번 게시물이 생성되었습니다.\n", id);
 
+		} else if (cmd.startsWith("article detail ")) {
+			int id = Integer.parseInt(cmd.split(" ")[2]);
+
+			SecSql sql = new SecSql();
+			sql.append("SELECT *");
+			sql.append("FROM article");
+			sql.append("WHERE id = ?", id);
+
+			Map<String, Object> articleMap = DBUtil.selectRow(conn, sql);
+
+			if (articleMap.isEmpty()) {
+				System.out.printf("%d번 게시글은 존재하지 않습니다.\n", id);
+				return 0;
+			}
+			System.out.printf("== %d번 게시물 상세보기 ==\n", id);
+			
+			Article article = new Article(articleMap);
+			
+			System.out.printf("번호 : %d\n", article.id);
+			System.out.printf("작성날짜 : %s\n", article.regDate);
+			System.out.printf("수정날짜 : %s\n", article.updateDate);
+			System.out.printf("제목 : %s\n", article.title);
+			System.out.printf("내용 : %s\n", article.body);
+			
 		} else if (cmd.startsWith("article modify ")) {
 			int id = Integer.parseInt(cmd.split(" ")[2]);
 
@@ -110,14 +134,14 @@ public class App {
 			sql.append("WHERE id = ?", id);
 
 			int articlesCount = DBUtil.selectRowIntValue(conn, sql);
-			
-			if(articlesCount == 0) {
+
+			if (articlesCount == 0) {
 				System.out.printf("%d번 게시글은 존재하지 않습니다.\n", id);
 				return 0;
 			}
-			
+
 			System.out.printf("== %d번 게시물 삭제 ==\n", id);
-			
+
 			sql = new SecSql();
 			sql.append("DELETE FROM article");
 			sql.append("WHERE id = ?", id);
@@ -154,7 +178,6 @@ public class App {
 			for (Article article : articles) {
 				System.out.printf("%d  /  %s\n", article.id, article.title);
 			}
-
 		}
 
 		if (cmd.equals("exit")) {
