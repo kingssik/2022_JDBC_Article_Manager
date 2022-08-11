@@ -135,6 +135,36 @@ public class App {
 			}
 			System.out.printf("%d번 게시물이 수정 되었습니다\n", id);
 
+		} else if (cmd.startsWith("article delete ")) {
+			int id = Integer.parseInt(cmd.split(" ")[2]);
+
+			System.out.printf("== %d번 게시물 삭제 ==\n", id);
+			
+			PreparedStatement pstmt = null;
+			
+			try {
+				String sql = "DELETE FROM article";
+				sql += " WHERE id = " + id;
+				
+				System.out.println(sql);
+				
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				System.out.println("에러: " + e);
+			} finally {
+				try {
+					if (pstmt != null && !pstmt.isClosed()) {
+						pstmt.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.printf("%d번 게시물이 삭제 되었습니다\n", id);
+
 		} else if (cmd.equals("article list")) {
 
 			System.out.println("== 게시물 리스트 ==");
