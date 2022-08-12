@@ -19,5 +19,26 @@ title = CONCAT('제목',RAND()),
 
 SELECT * FROM article;
 
+SELECT COUNT(*)
+FROM article
+WHERE id = 1
+
+CREATE TABLE `member`(
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    loginId CHAR(20) NOT NULL,
+    loginPw CHAR(100) NOT NULL,
+    `name` CHAR(200) NOT NULL
+);
+
+SELECT *
+FROM `member`;
+
+SELECT loginID,
+COUNT(loginID)
+FROM `member`
+GROUP BY loginId;
+
 #select rand()
 ```
