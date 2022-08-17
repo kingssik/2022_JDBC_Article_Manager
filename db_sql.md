@@ -40,5 +40,11 @@ loginPW = CONCAT('TestPw',RAND()),
 SELECT * FROM article;
 SELECT * FROM `member`;
 
+SELECT COUNT(*) = 0
+FROM `member`
+WHERE loginID = 'aaa';
+
 #select rand()
+
+
 ```
