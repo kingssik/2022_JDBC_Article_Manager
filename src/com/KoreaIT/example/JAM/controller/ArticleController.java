@@ -1,6 +1,7 @@
 package com.KoreaIT.example.JAM.controller;
 
 import java.util.List;
+import java.util.Scanner;
 
 import com.KoreaIT.example.JAM.Article;
 import com.KoreaIT.example.JAM.container.Container;
@@ -62,6 +63,7 @@ public class ArticleController extends Controller {
 	public void showDetail(String cmd) {
 		int id = Integer.parseInt(cmd.split(" ")[2]);
 
+		articleService.increaseHit(id);
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
@@ -77,6 +79,7 @@ public class ArticleController extends Controller {
 		System.out.printf("작성자 : %s\n", article.extra__writer);
 		System.out.printf("제목 : %s\n", article.title);
 		System.out.printf("내용 : %s\n", article.body);
+		System.out.printf("조회수 : %d\n", article.hit);
 
 	}
 
@@ -117,10 +120,11 @@ public class ArticleController extends Controller {
 			return;
 		}
 
-		System.out.println("번호  /  제목  / 작성자");
+		System.out.printf("번호  /  %8s         /  제목   /  작성자   /  조회수\n", "작성날짜");
 
 		for (Article article : articles) {
-			System.out.printf("%d  /  %s  /  %s\n", article.id, article.title, article.extra__writer);
+			System.out.printf("%4d  /  %s  /  %s  /  %s  /  %d\n", article.id, article.regDate, article.title,
+					article.extra__writer,article.hit);
 		}
 
 	}
