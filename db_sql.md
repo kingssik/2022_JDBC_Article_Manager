@@ -14,6 +14,7 @@ CREATE TABLE article(
     title CHAR(100) NOT NULL,
     `body` TEXT NOT NULL
 );
+
 # 회원 테이블 생성
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -23,6 +24,9 @@ CREATE TABLE `member` (
     loginPw CHAR(100) NOT NULL,
     `name` CHAR(200) NOT NULL
 );
+
+# 게시글 테이블에 memberId 칼럼 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL;
 
 INSERT INTO article
 SET regDate = NOW(),
