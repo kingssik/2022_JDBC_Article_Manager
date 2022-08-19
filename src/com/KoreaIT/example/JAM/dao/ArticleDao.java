@@ -23,6 +23,7 @@ public class ArticleDao {
 		sql.append(", memberId = ?", memberId);
 		sql.append(", title = ?", title);
 		sql.append(", `body` = ?", body);
+		sql.append(", hit = ?", 0);
 
 		int id = DBUtil.insert(Container.conn, sql);
 
